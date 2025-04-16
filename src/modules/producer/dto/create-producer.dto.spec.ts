@@ -39,4 +39,14 @@ describe('CreateProducerDto', () => {
     expect(errors.length).toBeGreaterThan(0);
     expect(errors[0].constraints).toHaveProperty('CpfCnpjValidator');
   });
+
+  it('deve rejeitar criação com nome vazio', async () => {
+    const dto = new CreateProducerDto();
+    dto.name = '';
+    dto.cpfCnpj = '39053344705'; // CPF válido
+
+    const errors = await validate(dto);
+    expect(errors.length).toBeGreaterThan(0);
+    expect(errors[0].constraints).toHaveProperty('isNotEmpty');
+  });
 });

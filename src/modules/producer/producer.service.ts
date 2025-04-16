@@ -32,6 +32,10 @@ export class ProducerService {
       where: { cpfCnpj },
     });
 
+    if (!createProducerDto.name || createProducerDto.name.trim() === '') {
+      throw new Error('Nome não pode ser vazio');
+    }
+
     if (existingProducer) {
       throw new BadRequestException('cpf/cnpj already exists');
     }
@@ -41,6 +45,13 @@ export class ProducerService {
 
   async update(id: string, updateProducerDto: UpdateProducerDto) {
     const producer = await this.findOne(id);
+
+    if (
+      updateProducerDto.name !== undefined &&
+      updateProducerDto.name.trim() === ''
+    ) {
+      throw new Error('Nome não pode ser vazio');
+    }
 
     if (updateProducerDto.cpfCnpj) {
       const existing = await this.prisma.producer.findUnique({
