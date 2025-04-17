@@ -1,0 +1,118 @@
+### PRODUCER
+
+# Listar produtores
+GET http://localhost:3000/producers
+
+# Buscar produtor por ID
+GET http://localhost:3000/producers/{{producerId}}
+
+# Criar produtor
+POST http://localhost:3000/producers
+Content-Type: application/json
+
+{
+  "name": "João da Silva",
+  "cpfCnpj": "39053344705"
+}
+
+# Atualizar produtor
+PUT http://localhost:3000/producers/{{producerId}}
+Content-Type: application/json
+
+{
+  "name": "João Atualizado",
+  "cpfCnpj": "39053344705"
+}
+
+# Remover produtor
+DELETE http://localhost:3000/producers/{{producerId}}
+
+
+### FARM
+
+# Listar fazendas
+GET http://localhost:3000/farms
+
+# Buscar fazenda por ID
+GET http://localhost:3000/farms/{{farmId}}
+
+# Criar fazenda
+POST http://localhost:3000/farms
+Content-Type: application/json
+
+{
+  "name": "Fazenda Primavera",
+  "city": "Cidade Exemplo",
+  "state": "SP",
+  "totalArea": 100,
+  "arableArea": 60,
+  "vegetationArea": 40,
+  "producerId": "{{producerId}}"
+}
+
+# Atualizar fazenda
+PUT http://localhost:3000/farms/{{farmId}}
+Content-Type: application/json
+
+{
+  "name": "Fazenda Primavera Atualizada",
+  "city": "Cidade Exemplo",
+  "state": "SP",
+  "totalArea": 120,
+  "arableArea": 70,
+  "vegetationArea": 50,
+  "producerId": "{{producerId}}"
+}
+
+# Remover fazenda
+DELETE http://localhost:3000/farms/{{farmId}}
+
+
+### CROP
+
+# Listar culturas
+GET http://localhost:3000/crops
+
+# Buscar area por ID
+GET http://localhost:3000/crops/{{cropId}}
+
+# Criar area
+POST http://localhost:3000/crops
+Content-Type: application/json
+
+{
+  "name": "Soja",
+  "season": "2024/2025",
+  "farmId": "{{farmId}}"
+}
+
+# Atualizar area
+PUT http://localhost:3000/crops/{{cropId}}
+Content-Type: application/json
+
+{
+  "name": "Milho",
+  "season": "2024/2025",
+  "farmId": "{{farmId}}"
+}
+
+# Remover area
+DELETE http://localhost:3000/crops/{{cropId}}
+
+
+### DASHBOARD
+
+# Total de fazendas cadastradas
+GET http://localhost:3000/dashboard/total-farms
+
+# Total de hectares registrados
+GET http://localhost:3000/dashboard/total-area
+
+# Gráfico de fazendas por estado
+GET http://localhost:3000/dashboard/by-state
+
+# Gráfico por area plantada
+GET http://localhost:3000/dashboard/by-crop
+
+# Gráfico por uso do solo (área agricultável e vegetação)
+GET http://localhost:3000/dashboard/land-use

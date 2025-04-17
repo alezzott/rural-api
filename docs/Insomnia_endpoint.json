@@ -1,0 +1,629 @@
+{
+    "type": "collection.insomnia.rest/5.0",
+    "name": "rural-api",
+    "meta": {
+        "id": "wrk_2b3a196fd95c47c6b0ca0833f4ed9173",
+        "created": 1744815716044,
+        "modified": 1744815716044
+    },
+    "collection": [
+        {
+            "name": "producers",
+            "meta": {
+                "id": "fld_f4118f735dc646968c3017c9bb021c3d",
+                "created": 1744840044137,
+                "modified": 1744840044137,
+                "sortKey": -1744840044137
+            },
+            "children": [
+                {
+                    "url": "{{ _['base url'].base_URL }}/producers",
+                    "name": "creat producer",
+                    "meta": {
+                        "id": "req_ac3e51a5b9c6402ca3fb8881962313c4",
+                        "created": 1744815739392,
+                        "modified": 1744843877174,
+                        "isPrivate": false,
+                        "sortKey": -1744840053290
+                    },
+                    "method": "POST",
+                    "body": {
+                        "mimeType": "application/json",
+                        "text": "{\n  \"name\": \"Jose Teste\",\n  \"cpfCnpj\": \"19131243000197\"\n}"
+                    },
+                    "headers": [
+                        {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                },
+                {
+                    "url": "{{ _['base url'].base_URL }}/producers",
+                    "name": "get all producers",
+                    "meta": {
+                        "id": "req_fef0ba38916f4cc0801ba2fd44e9f1ff",
+                        "created": 1744837094643,
+                        "modified": 1744840058580,
+                        "isPrivate": false,
+                        "sortKey": -1744840053190
+                    },
+                    "method": "GET",
+                    "headers": [
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                },
+                {
+                    "url": "{{ _['base url'].base_URL }}/producers/bbe29beb-56a4-4d5d-9235-9c45504b0758",
+                    "name": "get producer item",
+                    "meta": {
+                        "id": "req_9fc7748c62bb4ae0ad3342fb94c8a9f1",
+                        "created": 1744837141725,
+                        "modified": 1744840057258,
+                        "isPrivate": false,
+                        "sortKey": -1744840053090
+                    },
+                    "method": "GET",
+                    "headers": [
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                },
+                {
+                    "url": "{{ _['base url'].base_URL }}/producers/bbe29beb-56a4-4d5d-9235-9c45504b0758",
+                    "name": "update producer",
+                    "meta": {
+                        "id": "req_280690b3b2ec4036ab96caf34b2fe7a6",
+                        "created": 1744837257525,
+                        "modified": 1744840052960,
+                        "isPrivate": false,
+                        "sortKey": -1744840052890
+                    },
+                    "method": "PUT",
+                    "body": {
+                        "mimeType": "application/json",
+                        "text": "{\n  \"name\": \"João Atualizado\",\n  \"cpfCnpj\": \"39053344705\"\n}"
+                    },
+                    "headers": [
+                        {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                },
+                {
+                    "url": "{{ _['base url'].base_URL }}/producers/bbe29beb-56a4-4d5d-9235-9c45504b0758",
+                    "name": "delete producer",
+                    "meta": {
+                        "id": "req_05903d276d7c475db7f931f719422a51",
+                        "created": 1744837917173,
+                        "modified": 1744840055633,
+                        "isPrivate": false,
+                        "sortKey": -1744840052990
+                    },
+                    "method": "DELETE",
+                    "body": {
+                        "mimeType": "application/json",
+                        "text": "{\n  \"name\": \"João Atualizado\",\n  \"cpfCnpj\": \"39053344705\"\n}"
+                    },
+                    "headers": [
+                        {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "farms",
+            "meta": {
+                "id": "fld_410bf61fe08f4caa89d8ebb76125c2c3",
+                "created": 1744843899148,
+                "modified": 1744843899148,
+                "sortKey": -1744843899148
+            },
+            "children": [
+                {
+                    "url": "{{ _['base url'].base_URL }}/farms",
+                    "name": "create farm",
+                    "meta": {
+                        "id": "req_b8b945be30ad43a982337d1dd01704d1",
+                        "created": 1744843925091,
+                        "modified": 1744896679631,
+                        "isPrivate": false,
+                        "sortKey": -1744843925091
+                    },
+                    "method": "POST",
+                    "body": {
+                        "mimeType": "application/json",
+                        "text": "{\n  \"name\": \"Fazenda Boa Vista testr 13\",\n  \"city\": \"Uberlândia\",\n  \"state\": \"MG\",\n  \"totalArea\": 200,\n  \"arableArea\": 86,\n  \"vegetationArea\": 20.5,\n  \"producerId\": \"c9d69166-ad05-45ef-96b2-c2ea4e3d87f9\"\n}"
+                    },
+                    "headers": [
+                        {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                },
+                {
+                    "url": "{{ _['base url'].base_URL }}/farms",
+                    "name": "get all farms",
+                    "meta": {
+                        "id": "req_b2c4974c397b4fa7b9813e0d322eae36",
+                        "created": 1744844426084,
+                        "modified": 1744844447734,
+                        "isPrivate": false,
+                        "sortKey": -1744844426084
+                    },
+                    "method": "GET",
+                    "headers": [
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                },
+                {
+                    "url": "{{ _['base url'].base_URL }}/farms/d306016a-61fe-4b02-88c7-05713204576f",
+                    "name": "get farm item",
+                    "meta": {
+                        "id": "req_5da6040132894e54a0540b492d1386f3",
+                        "created": 1744844454183,
+                        "modified": 1744844861514,
+                        "isPrivate": false,
+                        "sortKey": -1744844454183
+                    },
+                    "method": "GET",
+                    "headers": [
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                },
+                {
+                    "url": "{{ _['base url'].base_URL }}/farms/d306016a-61fe-4b02-88c7-05713204576f",
+                    "name": "delete farm exists",
+                    "meta": {
+                        "id": "req_f2ddf8da489f4dc693f41968c449774b",
+                        "created": 1744844868075,
+                        "modified": 1744844953506,
+                        "isPrivate": false,
+                        "sortKey": -1744844868075
+                    },
+                    "method": "DELETE",
+                    "headers": [
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "crops",
+            "meta": {
+                "id": "fld_cd419c50ad02426db95edb925085e4ff",
+                "created": 1744847945391,
+                "modified": 1744896474239,
+                "sortKey": -1744847945591
+            },
+            "children": [
+                {
+                    "url": "{{ _['base url'].base_URL }}/crops",
+                    "name": "create crop",
+                    "meta": {
+                        "id": "req_3c41ec89b727490f92ad87b51875e3d4",
+                        "created": 1744847962052,
+                        "modified": 1744848588563,
+                        "isPrivate": false,
+                        "sortKey": -1744848416555
+                    },
+                    "method": "POST",
+                    "body": {
+                        "mimeType": "application/json",
+                        "text": "{\n  \"name\": \"Soja\",\n  \"season\": \"2024\",\n  \"farmId\": \"acd1d8c7-bad3-47c2-a4c0-a81c05f1df20\"\n}"
+                    },
+                    "headers": [
+                        {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                },
+                {
+                    "url": "{{ _['base url'].base_URL }}/crops",
+                    "name": "list all crops",
+                    "meta": {
+                        "id": "req_6aa3397866034a7dadbf9011c6927279",
+                        "created": 1744848419357,
+                        "modified": 1744848441223,
+                        "isPrivate": false,
+                        "sortKey": -1744848419357
+                    },
+                    "method": "GET",
+                    "headers": [
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                },
+                {
+                    "url": "{{ _['base url'].base_URL }}/crops/cb62b656-2177-498f-bd82-85e8c4005d77",
+                    "name": "update crop exists",
+                    "meta": {
+                        "id": "req_228b5c199be945ebb7eadbb16bf4e699",
+                        "created": 1744848566325,
+                        "modified": 1744848800207,
+                        "isPrivate": false,
+                        "sortKey": -1744848566325
+                    },
+                    "method": "PUT",
+                    "body": {
+                        "mimeType": "application/json",
+                        "text": "{\n  \"name\": \"Milho\",\n  \"season\": \"2025/2026\",\n  \"farmId\": \"2865fa2a-fc38-43ba-b87f-acfe4f0cf6df\"\n}"
+                    },
+                    "headers": [
+                        {
+                            "name": "Content-Type",
+                            "value": "application/json"
+                        },
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                },
+                {
+                    "url": "{{ _['base url'].base_URL }}/crops/f4eb3338-99bb-4cef-aa96-8ac7c0fcd197",
+                    "name": "remove crop by id",
+                    "meta": {
+                        "id": "req_c1e1655ba76942828feabe7aca28fa90",
+                        "created": 1744848819851,
+                        "modified": 1744848851116,
+                        "isPrivate": false,
+                        "sortKey": -1744848819851
+                    },
+                    "method": "DELETE",
+                    "headers": [
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                }
+            ]
+        },
+        {
+            "name": "dashboard",
+            "meta": {
+                "id": "fld_acf6d9493e3541c6a2ffa22982e16361",
+                "created": 1744896454366,
+                "modified": 1744896454366,
+                "sortKey": -1744896454366
+            },
+            "children": [
+                {
+                    "url": "{{ _['base url'].base_URL }}/dashboard/total-farms",
+                    "name": "total-farms",
+                    "meta": {
+                        "id": "req_1f6aada852ff4b2f871bb9116b0e43b8",
+                        "created": 1744896460690,
+                        "modified": 1744896489082,
+                        "isPrivate": false,
+                        "sortKey": -1744896460690
+                    },
+                    "method": "GET",
+                    "headers": [
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                },
+                {
+                    "url": "{{ _['base url'].base_URL }}/dashboard/total-area",
+                    "name": "total-area",
+                    "meta": {
+                        "id": "req_652b3fc92920409aa59e61e08e725929",
+                        "created": 1744896565381,
+                        "modified": 1744896569365,
+                        "isPrivate": false,
+                        "sortKey": -1744872640270.5
+                    },
+                    "method": "GET",
+                    "headers": [
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                },
+                {
+                    "url": "{{ _['base url'].base_URL }}/dashboard/by-state",
+                    "name": "by-state",
+                    "meta": {
+                        "id": "req_fe59c9e20adc442fad0cdbe906a87921",
+                        "created": 1744896589927,
+                        "modified": 1744896595517,
+                        "isPrivate": false,
+                        "sortKey": -1744860730060.75
+                    },
+                    "method": "GET",
+                    "headers": [
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                },
+                {
+                    "url": "{{ _['base url'].base_URL }}/dashboard/by-crop",
+                    "name": "by-crop",
+                    "meta": {
+                        "id": "req_98a02b89a95c4442aa061dbf34c5c8e4",
+                        "created": 1744896607741,
+                        "modified": 1744896642645,
+                        "isPrivate": false,
+                        "sortKey": -1744854774955.875
+                    },
+                    "method": "GET",
+                    "headers": [
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                },
+                {
+                    "url": "{{ _['base url'].base_URL }}/dashboard/land-use",
+                    "name": "land-use",
+                    "meta": {
+                        "id": "req_cceddda992684e63893f0cf9c56a0b37",
+                        "created": 1744896658025,
+                        "modified": 1744896665066,
+                        "isPrivate": false,
+                        "sortKey": -1744851797403.4375
+                    },
+                    "method": "GET",
+                    "headers": [
+                        {
+                            "name": "User-Agent",
+                            "value": "insomnia/11.0.2"
+                        }
+                    ],
+                    "settings": {
+                        "renderRequestBody": true,
+                        "encodeUrl": true,
+                        "followRedirects": "global",
+                        "cookies": {
+                            "send": true,
+                            "store": true
+                        },
+                        "rebuildPath": true
+                    }
+                }
+            ]
+        }
+    ],
+    "cookieJar": {
+        "name": "Default Jar",
+        "meta": {
+            "id": "jar_828509c8a30af23767b42e2af6ba4b3706d9cab7",
+            "created": 1744815716050,
+            "modified": 1744815716050
+        }
+    },
+    "environments": {
+        "name": "Base Environment",
+        "meta": {
+            "id": "env_828509c8a30af23767b42e2af6ba4b3706d9cab7",
+            "created": 1744815716047,
+            "modified": 1744815873108,
+            "isPrivate": false
+        },
+        "data": {
+            "base url": {
+                "base_URL": "http://localhost:3000"
+            }
+        }
+    }
+}
