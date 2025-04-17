@@ -98,4 +98,48 @@ describe('FarmService', () => {
     expect(result).toHaveProperty('message', 'Farm deleted successfully');
     await expect(service.findOne(farm.id)).rejects.toThrow(NotFoundException);
   });
+
+  it('deve permitir criar uma fazenda sem culturas', async () => {
+    const producer = await prisma.producer.create({
+      data: { name: 'Produtor', cpfCnpj: String(Date.now()) },
+    });
+    const farm = await prisma.farm.create({
+      data: {
+        name: 'Fazenda Sem Cultura',
+        city: 'Cidade',
+        state: 'UF',
+        totalArea: 10,
+        arableArea: 5,
+        vegetationArea: 5,
+        producerId: producer.id,
+      },
+    });
+    const crops = await prisma.crop.findMany({ where: { farmId: farm.id } });
+    expect(crops.length).toBe(0);
+  });
+
+  it('deve permitir criar uma fazenda com várias culturas', async () => {
+    const producer = await prisma.producer.create({
+      data: { name: 'Produtor', cpfCnpj: String(Date.now()) },
+    });
+    const farm = await prisma.farm.create({
+      data: {
+        name: 'Fazenda Multi Cultura',
+        city: 'Cidade',
+        state: 'UF',
+        totalArea: 10,
+        arableArea: 5,
+        vegetationArea: 5,
+        producerId: producer.id,
+      },
+    });
+    await prisma.crop.createMany({
+      data: [
+        { name: 'Soja', season: '2024/2025', farmId: farm.id },
+        { name: 'Milho', season: '2024/2025', farmId: farm.id },
+      ],
+    });
+    const crops = await prisma.crop.findMany({ where: { farmId: farm.id } });
+    expect(crops.length).toBe(2);
+  });
 });

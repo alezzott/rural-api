@@ -29,6 +29,8 @@ describe('ProducerController (e2e)', () => {
   });
 
   beforeEach(async () => {
+    await prisma.crop.deleteMany();
+    await prisma.farm.deleteMany();
     await prisma.producer.deleteMany();
   });
 

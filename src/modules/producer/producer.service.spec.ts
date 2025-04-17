@@ -14,6 +14,8 @@ describe('ProducerService', () => {
     service = module.get<ProducerService>(ProducerService);
     prisma = module.get<PrismaService>(PrismaService);
 
+    await prisma.crop.deleteMany();
+    await prisma.farm.deleteMany();
     await prisma.producer.deleteMany();
   });
 
@@ -29,5 +31,47 @@ describe('ProducerService', () => {
       cpfCnpj: '39053344705',
     });
     await expect(service.update(created.id, { name: '' })).rejects.toThrow();
+  });
+
+  it('deve permitir criar um produtor sem fazendas', async () => {
+    const producer = await prisma.producer.create({
+      data: { name: 'Produtor Sem Fazenda', cpfCnpj: String(Date.now()) },
+    });
+    const farms = await prisma.farm.findMany({
+      where: { producerId: producer.id },
+    });
+    expect(farms.length).toBe(0);
+  });
+
+  it('deve permitir criar um produtor com várias fazendas', async () => {
+    const producer = await prisma.producer.create({
+      data: { name: 'Produtor Multi', cpfCnpj: String(Date.now()) },
+    });
+    await prisma.farm.createMany({
+      data: [
+        {
+          name: 'Fazenda 1',
+          city: 'Cidade',
+          state: 'UF',
+          totalArea: 10,
+          arableArea: 5,
+          vegetationArea: 5,
+          producerId: producer.id,
+        },
+        {
+          name: 'Fazenda 2',
+          city: 'Cidade',
+          state: 'UF',
+          totalArea: 20,
+          arableArea: 10,
+          vegetationArea: 10,
+          producerId: producer.id,
+        },
+      ],
+    });
+    const farms = await prisma.farm.findMany({
+      where: { producerId: producer.id },
+    });
+    expect(farms.length).toBe(2);
   });
 });
