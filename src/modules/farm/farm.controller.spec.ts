@@ -3,6 +3,11 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../../app.module';
 import { PrismaService } from '../prisma/prisma.service';
+import {
+  randomProducerName,
+  randomCpf,
+  randomFarmName,
+} from '../../../test/utils/fake-data';
 
 describe('FarmController (e2e)', () => {
   let app: INestApplication;
@@ -23,7 +28,7 @@ describe('FarmController (e2e)', () => {
     await prisma.producer.deleteMany();
 
     const producer = await prisma.producer.create({
-      data: { name: 'Produtor', cpfCnpj: '39053344705' },
+      data: { name: randomProducerName(), cpfCnpj: randomCpf() },
     });
     producerId = producer.id;
   });
@@ -35,7 +40,7 @@ describe('FarmController (e2e)', () => {
 
   it('deve criar uma fazenda (POST /farms)', async () => {
     const farmData = {
-      name: 'Fazenda Integração',
+      name: randomFarmName(),
       city: 'Cidade',
       state: 'UF',
       totalArea: 100,
@@ -55,7 +60,7 @@ describe('FarmController (e2e)', () => {
 
   it('deve impedir criação com producerId inválido', async () => {
     const farmData = {
-      name: 'Fazenda Inválida',
+      name: randomFarmName(),
       city: 'Cidade',
       state: 'UF',
       totalArea: 100,
@@ -75,8 +80,9 @@ describe('FarmController (e2e)', () => {
   });
 
   it('deve impedir criação com nome duplicado', async () => {
+    const farmName = randomFarmName();
     const farmData = {
-      name: 'Fazenda Integração',
+      name: farmName,
       city: 'Cidade',
       state: 'UF',
       totalArea: 100,
@@ -101,9 +107,10 @@ describe('FarmController (e2e)', () => {
   });
 
   it('deve buscar uma fazenda existente (GET /farms/:id)', async () => {
+    const farmName = randomFarmName();
     const farm = await prisma.farm.create({
       data: {
-        name: 'Fazenda Busca',
+        name: farmName,
         city: 'Cidade',
         state: 'UF',
         totalArea: 10,
@@ -117,13 +124,14 @@ describe('FarmController (e2e)', () => {
       .get(`/farms/${farm.id}`)
       .expect(200)) as { body: { name: string } };
 
-    expect(response.body.name).toBe('Fazenda Busca');
+    expect(response.body.name).toBe(farmName);
   });
 
   it('deve remover uma fazenda (DELETE /farms/:id)', async () => {
+    const farmName = randomFarmName();
     const farm = await prisma.farm.create({
       data: {
-        name: 'Fazenda Remover',
+        name: farmName,
         city: 'Cidade',
         state: 'UF',
         totalArea: 10,

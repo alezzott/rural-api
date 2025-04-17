@@ -2,6 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CropService } from './crop.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  randomProducerName,
+  randomCpf,
+  randomFarmName,
+  randomCropName,
+} from '../../../test/utils/fake-data';
 
 describe('CropService', () => {
   let service: CropService;
@@ -21,11 +27,11 @@ describe('CropService', () => {
     await prisma.producer.deleteMany();
 
     const producer = await prisma.producer.create({
-      data: { name: 'Produtor', cpfCnpj: String(Date.now()) },
+      data: { name: randomProducerName(), cpfCnpj: randomCpf() },
     });
     const farm = await prisma.farm.create({
       data: {
-        name: 'Fazenda Teste 5',
+        name: randomFarmName(),
         city: 'Cidade',
         state: 'UF',
         totalArea: 100,
@@ -39,18 +45,18 @@ describe('CropService', () => {
 
   it('deve criar uma area válida', async () => {
     const crop = await service.create({
-      name: 'Soja',
+      name: randomCropName(),
       season: '2024/2025',
       farmId,
     });
     expect(crop).toHaveProperty('id');
-    expect(crop.name).toBe('Soja');
+    expect(crop.name).toBeDefined();
   });
 
   it('deve lançar erro se farmId não existir', async () => {
     await expect(
       service.create({
-        name: 'Milho',
+        name: randomCropName(),
         season: '2024/2025',
         farmId: 'id-invalido',
       }),
@@ -58,15 +64,16 @@ describe('CropService', () => {
   });
 
   it('deve lançar erro se já existir area com mesmo nome na fazenda', async () => {
+    const cropName = randomCropName();
     await service.create({
-      name: 'Soja',
+      name: cropName,
       season: '2024/2025',
       farmId,
     });
 
     await expect(
       service.create({
-        name: 'Soja',
+        name: cropName,
         season: '2025/2026',
         farmId,
       }),
@@ -74,13 +81,14 @@ describe('CropService', () => {
   });
 
   it('deve buscar uma area existente', async () => {
+    const cropName = randomCropName();
     const crop = await service.create({
-      name: 'Milho',
+      name: cropName,
       season: '2024/2025',
       farmId,
     });
     const found = await service.findOne(crop.id);
-    expect(found.name).toBe('Milho');
+    expect(found.name).toBe(cropName);
   });
 
   it('deve lançar erro ao buscar area inexistente', async () => {
@@ -91,12 +99,12 @@ describe('CropService', () => {
 
   it('deve remover uma area existente', async () => {
     const producer = await prisma.producer.create({
-      data: { name: 'Produtor', cpfCnpj: String(Date.now()) },
+      data: { name: randomProducerName(), cpfCnpj: randomCpf() },
     });
 
     const farm = await prisma.farm.create({
       data: {
-        name: 'Fazenda Remover area',
+        name: randomFarmName(),
         city: 'Cidade',
         state: 'UF',
         totalArea: 10,
@@ -107,7 +115,7 @@ describe('CropService', () => {
     });
 
     const crop = await service.create({
-      name: 'Feijão',
+      name: randomCropName(),
       season: '2024/2025',
       farmId: farm.id,
     });

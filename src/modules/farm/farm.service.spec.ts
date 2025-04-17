@@ -2,6 +2,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { FarmService } from './farm.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  randomProducerName,
+  randomCpf,
+  randomFarmName,
+} from '../../../test/utils/fake-data';
 
 describe('FarmService', () => {
   let service: FarmService;
@@ -16,18 +21,20 @@ describe('FarmService', () => {
     service = module.get<FarmService>(FarmService);
     prisma = module.get<PrismaService>(PrismaService);
 
+    await prisma.crop.deleteMany();
     await prisma.farm.deleteMany();
     await prisma.producer.deleteMany();
 
     const producer = await prisma.producer.create({
-      data: { name: 'Produtor', cpfCnpj: '39053344705' },
+      data: { name: randomProducerName(), cpfCnpj: randomCpf() },
     });
     producerId = producer.id;
   });
 
   it('deve criar uma fazenda válida', async () => {
+    const farmName = randomFarmName();
     const farm = await service.create({
-      name: 'Fazenda Nova',
+      name: farmName,
       city: 'Cidade',
       state: 'UF',
       totalArea: 10,
@@ -36,12 +43,13 @@ describe('FarmService', () => {
       producerId,
     });
     expect(farm).toHaveProperty('id');
-    expect(farm.name).toBe('Fazenda Nova');
+    expect(farm.name).toBe(farmName);
   });
 
   it('deve lançar erro se farm name já existir', async () => {
+    const farmName = randomFarmName();
     await service.create({
-      name: 'Fazenda Teste',
+      name: farmName,
       city: 'Cidade',
       state: 'UF',
       totalArea: 10,
@@ -52,7 +60,7 @@ describe('FarmService', () => {
 
     await expect(
       service.create({
-        name: 'Fazenda Teste',
+        name: farmName,
         city: 'Outra Cidade',
         state: 'UF',
         totalArea: 20,
@@ -70,8 +78,9 @@ describe('FarmService', () => {
   });
 
   it('deve buscar uma fazenda existente', async () => {
+    const farmName = randomFarmName();
     const farm = await service.create({
-      name: 'Fazenda Busca',
+      name: farmName,
       city: 'Cidade',
       state: 'UF',
       totalArea: 10,
@@ -81,12 +90,13 @@ describe('FarmService', () => {
     });
     const found = await service.findOne(farm.id);
     expect(found).not.toBeNull();
-    expect(found.name).toBe('Fazenda Busca');
+    expect(found.name).toBe(farmName);
   });
 
   it('deve remover uma fazenda existente', async () => {
+    const farmName = randomFarmName();
     const farm = await service.create({
-      name: 'Fazenda Remover',
+      name: farmName,
       city: 'Cidade',
       state: 'UF',
       totalArea: 10,
@@ -101,11 +111,12 @@ describe('FarmService', () => {
 
   it('deve permitir criar uma fazenda sem culturas', async () => {
     const producer = await prisma.producer.create({
-      data: { name: 'Produtor', cpfCnpj: String(Date.now()) },
+      data: { name: randomProducerName(), cpfCnpj: randomCpf() },
     });
+    const farmName = randomFarmName();
     const farm = await prisma.farm.create({
       data: {
-        name: 'Fazenda Sem area',
+        name: farmName,
         city: 'Cidade',
         state: 'UF',
         totalArea: 10,
@@ -120,11 +131,12 @@ describe('FarmService', () => {
 
   it('deve permitir criar uma fazenda com várias culturas', async () => {
     const producer = await prisma.producer.create({
-      data: { name: 'Produtor', cpfCnpj: String(Date.now()) },
+      data: { name: randomProducerName(), cpfCnpj: randomCpf() },
     });
+    const farmName = randomFarmName();
     const farm = await prisma.farm.create({
       data: {
-        name: 'Fazenda Multi area',
+        name: farmName,
         city: 'Cidade',
         state: 'UF',
         totalArea: 10,

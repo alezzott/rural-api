@@ -3,14 +3,17 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../../app.module';
 import { PrismaService } from '../prisma/prisma.service';
+import { randomProducerName, randomCpf } from '../../../test/utils/fake-data';
 
 describe('ProducerController (e2e)', () => {
   let app: INestApplication;
   let prisma: PrismaService;
 
   const createProducer = async (
-    data = { name: 'João', cpfCnpj: '39053344705' },
+    data = { name: randomProducerName(), cpfCnpj: randomCpf() },
   ) => prisma.producer.create({ data });
+
+  console.log(createProducer, 'createProducer');
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -35,7 +38,7 @@ describe('ProducerController (e2e)', () => {
   });
 
   it('deve criar um produtor (POST /producers)', async () => {
-    const producerData = { name: 'João', cpfCnpj: '39053344705' };
+    const producerData = { name: randomProducerName(), cpfCnpj: randomCpf() };
 
     const response = (await request(app.getHttpServer() as string)
       .post('/producers')
@@ -56,7 +59,10 @@ describe('ProducerController (e2e)', () => {
   it('deve atualizar um produtor (PUT /producers/:id)', async () => {
     const producer = await createProducer();
 
-    const updatedData = { name: 'João Atualizado', cpfCnpj: '39053344705' };
+    const updatedData = {
+      name: randomProducerName(),
+      cpfCnpj: producer.cpfCnpj,
+    };
     const response = (await request(app.getHttpServer())
       .put(`/producers/${producer.id}`)
       .send(updatedData)
@@ -73,24 +79,19 @@ describe('ProducerController (e2e)', () => {
 
   it('deve impedir atualização com CPF/CNPJ duplicado (PUT /producers/:id)', async () => {
     await createProducer();
-    const producer2 = await createProducer({
-      name: 'Maria',
-      cpfCnpj: '19131243000197',
-    });
+    const producer1 = await createProducer();
+    const producer2 = await createProducer();
 
     const response = (await request(app.getHttpServer())
       .put(`/producers/${producer2.id}`)
-      .send({ cpfCnpj: '39053344705' })
+      .send({ cpfCnpj: producer1.cpfCnpj })
       .expect(400)) as { body: { message: string } };
 
     expect(response.body.message).toContain('cpf/cnpj already exists');
   });
 
   it('deve remover um produtor (DELETE /producers/:id)', async () => {
-    const producer = await createProducer({
-      name: 'Maria',
-      cpfCnpj: '19131243000197',
-    });
+    const producer = await createProducer();
 
     const response = (await request(app.getHttpServer())
       .delete(`/producers/${producer.id}`)

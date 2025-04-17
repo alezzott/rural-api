@@ -1,11 +1,16 @@
 import { validate } from 'class-validator';
 import { CreateProducerDto } from './create-producer.dto';
+import {
+  randomProducerName,
+  randomCpf,
+  randomCnpj,
+} from '../../../../test/utils/fake-data';
 
 describe('CreateProducerDto', () => {
   it('deve aceitar CPF válido', async () => {
     const dto = new CreateProducerDto();
-    dto.name = 'João';
-    dto.cpfCnpj = '39053344705'; // CPF válido
+    dto.name = randomProducerName();
+    dto.cpfCnpj = randomCpf();
 
     const errors = await validate(dto);
     expect(errors.length).toBe(0);
@@ -13,8 +18,8 @@ describe('CreateProducerDto', () => {
 
   it('deve aceitar CNPJ válido', async () => {
     const dto = new CreateProducerDto();
-    dto.name = 'Empresa';
-    dto.cpfCnpj = '19131243000197'; // CNPJ válido
+    dto.name = randomProducerName();
+    dto.cpfCnpj = randomCnpj();
 
     const errors = await validate(dto);
     expect(errors.length).toBe(0);
@@ -22,7 +27,7 @@ describe('CreateProducerDto', () => {
 
   it('deve rejeitar CPF inválido', async () => {
     const dto = new CreateProducerDto();
-    dto.name = 'João';
+    dto.name = randomProducerName();
     dto.cpfCnpj = '12345678900'; // CPF inválido
 
     const errors = await validate(dto);
@@ -32,7 +37,7 @@ describe('CreateProducerDto', () => {
 
   it('deve rejeitar CNPJ inválido', async () => {
     const dto = new CreateProducerDto();
-    dto.name = 'Empresa';
+    dto.name = randomProducerName();
     dto.cpfCnpj = '12345678000100'; // CNPJ inválido
 
     const errors = await validate(dto);
@@ -43,7 +48,7 @@ describe('CreateProducerDto', () => {
   it('deve rejeitar criação com nome vazio', async () => {
     const dto = new CreateProducerDto();
     dto.name = '';
-    dto.cpfCnpj = '39053344705'; // CPF válido
+    dto.cpfCnpj = randomCpf();
 
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);

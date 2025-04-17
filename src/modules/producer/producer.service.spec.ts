@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProducerService } from './producer.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { randomProducerName, randomCpf } from '../../../test/utils/fake-data';
 
 describe('ProducerService', () => {
   let service: ProducerService;
@@ -21,21 +22,21 @@ describe('ProducerService', () => {
 
   it('deve lançar erro ao criar produtor com nome vazio', async () => {
     await expect(
-      service.create({ name: '', cpfCnpj: '39053344705' }),
+      service.create({ name: '', cpfCnpj: randomCpf() }),
     ).rejects.toThrow();
   });
 
   it('deve lançar erro ao atualizar produtor com nome vazio', async () => {
     const created = await service.create({
-      name: 'João',
-      cpfCnpj: '39053344705',
+      name: randomProducerName(),
+      cpfCnpj: randomCpf(),
     });
     await expect(service.update(created.id, { name: '' })).rejects.toThrow();
   });
 
   it('deve permitir criar um produtor sem fazendas', async () => {
     const producer = await prisma.producer.create({
-      data: { name: 'Produtor Sem Fazenda', cpfCnpj: String(Date.now()) },
+      data: { name: randomProducerName(), cpfCnpj: randomCpf() },
     });
     const farms = await prisma.farm.findMany({
       where: { producerId: producer.id },
@@ -45,7 +46,7 @@ describe('ProducerService', () => {
 
   it('deve permitir criar um produtor com várias fazendas', async () => {
     const producer = await prisma.producer.create({
-      data: { name: 'Produtor Multi', cpfCnpj: String(Date.now()) },
+      data: { name: randomProducerName(), cpfCnpj: randomCpf() },
     });
     await prisma.farm.createMany({
       data: [

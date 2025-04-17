@@ -50,14 +50,19 @@ export class ProducerService {
       updateProducerDto.name !== undefined &&
       updateProducerDto.name.trim() === ''
     ) {
-      throw new Error('Nome não pode ser vazio');
+      throw new BadRequestException('Nome não pode ser vazio');
     }
 
     if (updateProducerDto.cpfCnpj) {
-      const existing = await this.prisma.producer.findUnique({
-        where: { cpfCnpj: updateProducerDto.cpfCnpj },
+      const exists = await this.prisma.producer.findFirst({
+        where: {
+          cpfCnpj: updateProducerDto.cpfCnpj,
+          NOT: { id: producer.id },
+        },
       });
-      if (existing && existing.id !== id) {
+
+      if (exists) {
+        console.log('CPF/CNPJ duplicado detectado');
         throw new BadRequestException('cpf/cnpj already exists');
       }
     }
