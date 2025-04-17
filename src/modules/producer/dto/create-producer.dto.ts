@@ -9,6 +9,7 @@ export class CreateProducerDto {
   name: string;
 
   @IsNotEmpty()
+  @IsString()
   @Validate(CpfCnpjValidator)
   @ApiProperty({ example: '39053344705' })
   cpfCnpj: string;
