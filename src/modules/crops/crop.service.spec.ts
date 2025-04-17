@@ -37,7 +37,7 @@ describe('CropService', () => {
     farmId = farm.id;
   });
 
-  it('deve criar uma cultura válida', async () => {
+  it('deve criar uma area válida', async () => {
     const crop = await service.create({
       name: 'Soja',
       season: '2024/2025',
@@ -57,7 +57,7 @@ describe('CropService', () => {
     ).rejects.toThrow(NotFoundException);
   });
 
-  it('deve lançar erro se já existir cultura com mesmo nome na fazenda', async () => {
+  it('deve lançar erro se já existir area com mesmo nome na fazenda', async () => {
     await service.create({
       name: 'Soja',
       season: '2024/2025',
@@ -73,7 +73,7 @@ describe('CropService', () => {
     ).rejects.toThrow(BadRequestException);
   });
 
-  it('deve buscar uma cultura existente', async () => {
+  it('deve buscar uma area existente', async () => {
     const crop = await service.create({
       name: 'Milho',
       season: '2024/2025',
@@ -83,20 +83,20 @@ describe('CropService', () => {
     expect(found.name).toBe('Milho');
   });
 
-  it('deve lançar erro ao buscar cultura inexistente', async () => {
+  it('deve lançar erro ao buscar area inexistente', async () => {
     await expect(service.findOne('id-invalido')).rejects.toThrow(
       NotFoundException,
     );
   });
 
-  it('deve remover uma cultura existente', async () => {
+  it('deve remover uma area existente', async () => {
     const producer = await prisma.producer.create({
       data: { name: 'Produtor', cpfCnpj: String(Date.now()) },
     });
 
     const farm = await prisma.farm.create({
       data: {
-        name: 'Fazenda Remover Cultura',
+        name: 'Fazenda Remover area',
         city: 'Cidade',
         state: 'UF',
         totalArea: 10,

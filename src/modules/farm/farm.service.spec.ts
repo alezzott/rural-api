@@ -105,7 +105,7 @@ describe('FarmService', () => {
     });
     const farm = await prisma.farm.create({
       data: {
-        name: 'Fazenda Sem Cultura',
+        name: 'Fazenda Sem area',
         city: 'Cidade',
         state: 'UF',
         totalArea: 10,
@@ -124,7 +124,7 @@ describe('FarmService', () => {
     });
     const farm = await prisma.farm.create({
       data: {
-        name: 'Fazenda Multi Cultura',
+        name: 'Fazenda Multi area',
         city: 'Cidade',
         state: 'UF',
         totalArea: 10,
