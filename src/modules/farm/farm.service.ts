@@ -28,8 +28,6 @@ export class FarmService {
       throw new NotFoundException('Producer not found');
     }
 
-    console.log(createFarmDto);
-
     const existingFarm = await this.prisma.farm.findFirst({
       where: { name: createFarmDto.name },
     });
