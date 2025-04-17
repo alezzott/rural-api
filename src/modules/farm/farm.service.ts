@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateFarmDto } from '../farm/dto/farm-create.dto';
+import { UpdateFarmDto } from './dto/update-farm.dto';
 
 @Injectable()
 export class FarmService {
@@ -21,6 +22,8 @@ export class FarmService {
   }
 
   async create(createFarmDto: CreateFarmDto) {
+    const { totalArea, arableArea, vegetationArea } = createFarmDto;
+
     const producer = await this.prisma.producer.findUnique({
       where: { id: createFarmDto.producerId },
     });
@@ -35,10 +38,28 @@ export class FarmService {
       throw new BadRequestException('Farm name already exists');
     }
 
+    if ((arableArea ?? 0) + (vegetationArea ?? 0) > (totalArea ?? 0)) {
+      throw new BadRequestException(
+        'A soma das áreas agricultável e de vegetação não pode ultrapassar a área total da fazenda',
+      );
+    }
+
     return this.prisma.farm.create({ data: createFarmDto });
   }
 
-  async update(id: string, updateFarmDto: CreateFarmDto) {
+  async update(id: string, updateFarmDto: UpdateFarmDto) {
+    const farm = await this.findOne(id);
+
+    const totalArea = updateFarmDto.totalArea ?? farm.totalArea;
+    const arableArea = updateFarmDto.arableArea ?? farm.arableArea;
+    const vegetationArea = updateFarmDto.vegetationArea ?? farm.vegetationArea;
+
+    if ((arableArea ?? 0) + (vegetationArea ?? 0) > (totalArea ?? 0)) {
+      throw new BadRequestException(
+        'A soma das áreas agricultável e de vegetação não pode ultrapassar a área total da fazenda',
+      );
+    }
+
     await this.findOne(id);
     return this.prisma.farm.update({
       where: { id },
